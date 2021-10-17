@@ -9,6 +9,7 @@ create table [Users](
 	Roles varchar(120),
 	Cart varchar(120),
 	Wishlist varchar(120),
+	[Address] varchar(120)
 )
 
 alter table [Users] 
@@ -29,3 +30,55 @@ default 'default' for Roles;
 
 alter table [Users] 
 alter column Password varchar(100);
+
+alter table [Users]
+add [Address] varchar(120);
+
+-- PROCEDURE TO GET USER CART 
+create or alter procedure GetUserCart
+@userID varchar(25)
+as
+begin 
+	SELECT Cart FROM Users WHERE UserID like @userID
+end
+
+select * from Users
+
+exec GetUserCart @userID = 'user_1'
+
+-- PROCEDURE TO GET USER WISHLIST
+create or alter procedure GetUserWishlist
+@userID varchar(25)
+as
+begin 
+	SELECT Wishlist FROM Users WHERE UserID like @userID
+end
+
+select * from Users
+
+exec GetUserCart @userID = 'user_1'
+
+
+-- PROCEDURE TO MODIFY ITEM(S) IN USER CART 
+create or alter procedure ModifyUserCart
+@item varchar(120), @userID varchar(25)
+as
+begin 
+	update Users set Cart = @item where UserID = @userID
+end
+
+select * from Users
+
+exec AddItemToUserCart @item = 'cabbage', @userID = 'user_1'
+
+-- PROCEDURE TO MODIFY ITEM(S) IN USER WISHLIST
+create or alter procedure ModifyUserWishlist
+@item varchar(120), @userID varchar(25)
+as
+begin 
+	update Users set Wishlist = @item where UserID = @userID
+end
+
+select * from Users
+
+exec AddItemToUserCart @item = 'cabbage', @userID = 'user_1'
