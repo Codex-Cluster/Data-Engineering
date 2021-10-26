@@ -14,5 +14,10 @@ select count(*) from Users;
 
 select * from Users;
 
-update Users set Cart = 'cabbage:1'
-update Users set Wishlist = 'potato:2+cabbage:1+cauliflower:1'
+update Users set Wishlist = 'book00524:2+book00264:1+book01222:1'
+update Users set Cart = 'book01334:2+book01111:3+book11222:4'
+
+
+select Cart, Wishlist from Users where UserID='user_00008'
+
+select * from Books

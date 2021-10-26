@@ -156,3 +156,5 @@ exec ModifyUserInfo @userID = 'user_00001', @name = 'alkatraz', @email = 'prophe
 
 select * from Users
 
+-- Get Cart items
+

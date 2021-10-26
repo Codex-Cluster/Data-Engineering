@@ -38,12 +38,10 @@ begin
 	insert into Orders(userID, books, couponUsed, AmountPaid, [Address]) values (@userID, @books, @coupon, @amt, @address)
 end
 
-exec MakeOrder @userID = 'user_00012', @books = 'book000001+book000022', @coupon = 'AXTJWWDJCOWNQPWM', @amt = 12.97, @address = 'Shipping address'
+exec MakeOrder @userID = 'user_00008', @books = 'book00204:1+book00186:2', @coupon = 'AXTJWWDJCOWNQPWM', @amt = 12.97, @address = 'Shipping address'
 
 select * from Orders
 -- truncate table Orders
-
-
 
 create or alter procedure OrderedBooks
 @userID char(10)
