@@ -36,9 +36,10 @@ create or alter procedure MakeOrder
 as
 begin
 	insert into Orders(userID, books, couponUsed, AmountPaid, [Address]) values (@userID, @books, @coupon, @amt, @address)
+	update Users set Cart = '' where UserID = @userID
 end
 
-exec MakeOrder @userID = 'user_00008', @books = 'book00204:1+book00186:2', @coupon = 'AXTJWWDJCOWNQPWM', @amt = 12.97, @address = 'Shipping address'
+exec MakeOrder @userID = 'user_00010', @books = 'book00204:1+book00186:2', @coupon = 'AXTJWWDJCOWNQPWM', @amt = 12.97, @address = 'Shipping address'
 
 select * from Orders
 -- truncate table Orders
@@ -51,20 +52,21 @@ begin
 	return
 end
 
-exec OrderedBooks @userId = 'user_00012'
+exec OrderedBooks @userId = 'user_00010'
 
-select * from Orders where userID = 'user_00012'
+select * from Orders where userID = 'user_00010'
 
 
 -- Cancelling orders
 
 create or alter procedure CancelOrder
-@orderID int,
-@userID char(10)
+@userID char(10),
+@books varchar(120),
+@datetime date
 as
 begin
-	delete from Orders where orderID=@orderID and userID = @userID
+	delete from Orders where books=@books and userID = @userID and [datetime] = @datetime
 end
 
-exec CancelOrder @orderID = 3, @userID = 'user_00012'
-select * from Orders where userID = 'user_00012'
+exec CancelOrder @books = 'book00204:1+book00186:2', @userID = 'user_00010', @datetime = '2021-10-31'
+select * from Orders where userID = 'user_00010'

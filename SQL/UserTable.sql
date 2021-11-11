@@ -146,15 +146,19 @@ create or alter procedure ModifyUserInfo
 @name varchar(52),
 @email varchar(60),
 @mobile varchar(13),
-@address varchar(120)
+@address varchar(120),
+@active varchar(6),
+@roles varchar(120)
 as
 	begin
-		update Users set [Name] = @name, Email = @email, Mobile = @mobile, [address] = @address where UserID = @userID;
+		update Users set [Name] = @name, Email = @email, Mobile = @mobile, [Address] = @address, Active = @active, Roles = @roles where UserID = @userID;
 	end
 
 exec ModifyUserInfo @userID = 'user_00001', @name = 'alkatraz', @email = 'prophet.nano@crytek.net', @mobile = '1239129332', @address = 'New York'
 
 select * from Users
+
+update Users set Mobile = '7012835996' where UserID = 'user_00010'
 
 -- Get Cart items
 
